@@ -36,21 +36,30 @@ export default {
     };
   },
 
+  async mounted() {
+    const data = await localStorage.getItem("todos");
+    if (data) {
+      this.todos = JSON.parse(data);
+    }
+  },
+
   methods: {
-    addTodo(event) {
+    addTodo() {
       if (this.newTodo !== "") {
         this.todos.push({
           text: this.newTodo,
           checked: false,
         });
 
-        this.newTodo = "";
-        event.preventDefault();
+        localStorage.setItem("todos", JSON.stringify(this.todos));
       }
+
+      this.newTodo = "";
     },
 
     deleteTodo(i) {
       this.todos.splice(i, 1);
+      localStorage.setItem("todos", JSON.stringify(this.todos));
     },
   },
 };
