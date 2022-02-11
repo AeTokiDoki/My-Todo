@@ -31,16 +31,7 @@
 export default {
   data() {
     return {
-      todos: [
-        {
-          text: "Пример задачи 1",
-          checked: false,
-        },
-        {
-          text: "Пример задачи 2",
-          checked: false,
-        },
-      ],
+      todos: [],
       newTodo: null,
     };
   },
@@ -153,10 +144,15 @@ a {
 
 .task span {
   margin-right: 20px;
+  margin-left: 10px;
 }
 
 .button-delete {
+  min-width: 150px;
+
   padding: 0.7em 1.5em;
+  margin-left: auto;
+  margin-right: 20px;
 
   color: #fff;
   text-decoration: none;
