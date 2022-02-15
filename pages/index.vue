@@ -16,13 +16,7 @@
         </button>
       </div>
       <div class="task-list">
-        <li class="task" v-for="(task, i) in todos" :key="i">
-          <input type="checkbox" name="todo" v-model="task.checked" />
-          <span>{{ task.text }}</span>
-          <button class="button-delete" type="button" @click="deleteTodo(i)">
-            Удалить задачу
-          </button>
-        </li>
+        <Task v-for="(task, i) in $store.state.todos" :key="i" :task="task" />
       </div>
     </form>
   </div>
@@ -32,7 +26,6 @@
 export default {
   data() {
     return {
-      todos: [],
       newTodo: "",
     };
   },
@@ -47,20 +40,10 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodo !== "") {
-        this.todos.push({
-          text: this.newTodo,
-          checked: false,
-        });
-
+        this.$store.commit("ADD_TODO", this.newTodo);
+        this.newTodo = "";
         localStorage.setItem("todos", JSON.stringify(this.todos));
       }
-
-      this.newTodo = "";
-    },
-
-    deleteTodo(i) {
-      this.todos.splice(i, 1);
-      localStorage.removeItem("todos", JSON.stringify(this.todos));
     },
   },
 };
